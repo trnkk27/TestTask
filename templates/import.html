@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Import Books</h1>
+    <hr>
+    <form action="/import" method="get">
+        <div class="form-group">
+            <label for="keyword">Keyword:</label>
+            <input type="text" class="form-control" id="keyword" name="keyword">
+        </div>
+        <button type="submit" class="btn btn-secondary">Import from Google Books</button>
+    </form>
+
+    {% if books %}
+        <hr>
+        <h3>Imported Books</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Publication Date</th>
+                    <th>ISBN</th>
+                    <th>Number of Pages</th>
+                    <th>Cover Link</th>
+                    <th>Language</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                <tr>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.publication_date }}</td>
+                    <td>{{ book.isbn }}</td>
+                    <td>{{ book.num_pages }}</td>
+                    <td>{{ book.cover_link }}</td>
+                    <td>{{ book.language }}</td>
+                    <td>
+                        <form action="/delete" method="post" style="display:inline;">
+                            <input type="hidden" name="isbn" value="{{ book.isbn }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

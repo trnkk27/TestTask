@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ 'Edit Book' if book else 'Add Book' }}</h1>
+    <hr>
+    {% if error_message %}
+    <div class="alert alert-danger">
+        {{ error_message }}
+    </div>
+    {% endif %}
+    <form action="{{ '/edit/' + str(book.id) if book else '/add' }}" method="post">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ book.title if book else '' }}" required>
+        </div>
+        <div class="form-group">
+            <label for="author">Author:</label>
+            <input type="text" class="form-control" id="author" name="author" value="{{ book.author if book else '' }}" required>
+        </div>
+        <div class="form-group">
+            <label for="publication_date">Publication Date:</label>
+            <input type="text" class="form-control" id="publication_date" name="publication_date" value="{{ book.publication_date if book else '' }}">
+        </div>
+        <div class="form-group">
+            <label for="isbn">ISBN:</label>
+            <input type="text" class="form-control" id="isbn" name="isbn" value="{{ book.isbn if book else '' }}" required>
+        </div>
+        <div class="form-group">
+            <label for="num_pages">Number of Pages:</label>
+            <input type="number" class="form-control" id="num_pages" name="num_pages" value="{{ book.num_pages if book else '' }}">
+        </div>
+        <div class="form-group">
+            <label for="cover_link">Cover Link:</label>
+            <input type="text" class="form-control" id="cover_link" name="cover_link" value="{{ book.cover_link if book else '' }}">
+        </div>
+        <div class="form-group">
+            <label for="language">Language:</label>
+            <input type="text" class="form-control" id="language" name="language" value="{{ book.language if book else '' }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+{% endblock %}

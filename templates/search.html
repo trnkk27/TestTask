@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Book Search</h1>
+    <hr>
+    <form action="/search" method="post">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="title">Title:</label>
+                <input type="text" class="form-control" id="title" name="title">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="author">Author:</label>
+                <input type="text" class="form-control" id="author" name="author">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="language">Language:</label>
+                <input type="text" class="form-control" id="language" name="language">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="from_date">From Date:</label>
+                <input type="date" class="form-control" id="from_date" name="from_date">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="to_date">To Date:</label>
+                <input type="date" class="form-control" id="to_date" name="to_date">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <hr>
+    <h3>Search Results</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Publication Date</th>
+                <th>ISBN</th>
+                <th>Number of Pages</th>
+                <th>Cover Link</th>
+                <th>Language</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.publication_date }}</td>
+                <td>{{ book.isbn }}</td>
+                <td>{{ book.num_pages }}</td>
+                <td>{{ book.cover_link }}</td>
+                <td>{{ book.language }}</td>
+                <td>
+                    <form action="/delete" method="post" style="display:inline;">
+                        <input type="hidden" name="isbn" value="{{ book.isbn }}">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
